@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+<h1>Edit Group "{{ group.name }}"</h1>
+<hr />
+{% if error %}
+<div class="alert alert-danger" role="alert">{{ error }}</div>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      value="{{ group.name }}"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      class="form-control"
+      id="description"
+      name="description"
+      rows="3"
+      required
+    >
+{{ group.description }}</textarea
+    >
+  </div>
+  <div class="form-group">
+    <label for="photo">Group Photo</label>
+    <input type="file" class="form-control-file" id="photo" name="photo" />
+  </div>
+  {% if group.photo %}
+  <div class="form-group">
+    <label>Current Group Photo</label><br />
+    <img
+      src="{{ url_for('static', filename=group.photo) }}"
+      alt="{{ group.name }}"
+      width="200"
+    />
+  </div>
+  {% endif %}
+  <button type="submit" class="btn btn-primary">Update Group</button>
+</form>
+{% endblock %}

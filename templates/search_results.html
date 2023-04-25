@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+<hr />
+<div class="card-columns">
+  {% for group in groups %}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ group.name }}</h5>
+      <p class="card-text">{{ group.description }}</p>
+      {% if group.photo %}
+      <img
+        src="{{ url_for('static', filename=group.photo) }}"
+        alt="{{ group.name }}"
+      />
+      {% endif %}
+      <a
+        href="{{ url_for('bills', group_id=group.id) }}"
+        class="btn btn-primary"
+        >View Bills</a
+      >
+      <a
+        href="{{ url_for('edit_group', group_id=group.id) }}"
+        class="btn btn-secondary"
+        >Edit</a
+      >
+      <form
+        action="{{ url_for('delete_group', group_id=group.id) }}"
+        method="post"
+        style="display: inline"
+      >
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
